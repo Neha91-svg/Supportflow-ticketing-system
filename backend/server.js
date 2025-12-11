@@ -60,7 +60,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 
 app.use('/api/agents', agentRoutes);
 app.use('/api/admin', adminRoutes);
-app.use("/api/user-tickets", userTicketRoutes);
+app.use('/api/tickets', userTicketRoutes);  // so mytickets works as /api/tickets/mytickets
 
 app.use(errorHandler);
 
