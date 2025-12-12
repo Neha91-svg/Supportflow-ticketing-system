@@ -22,18 +22,28 @@ connectDB().catch((err) => {
 const app = express();
 
 // Middlewares
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://supportflow-gamma.vercel.app",
+  "https://supportflow-bli9m1njo-neha91-svgs-projects.vercel.app",
+  "https://supportflow-git-main-neha91-svgs-projects.vercel.app",
+  "https://supportflow-ticketing-system-1.onrender.com"  // ✅ add this
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "supportflow-gamma.vercel.app",   // stable production
-      "supportflow-bli9m1njo-neha91-svgs-projects.vercel.app",
-      "supportflow-git-main-neha91-svgs-projects.vercel.app"
-    ],
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Postman ya server-to-server
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS: " + origin));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // preflight ke liye
   })
 );
-
 app.use(express.json());
 app.use(helmet());
 
