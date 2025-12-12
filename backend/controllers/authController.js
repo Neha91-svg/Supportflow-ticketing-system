@@ -49,36 +49,38 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+// controllers/authController.js
 
-    const user = await User.findOne({ email });
-    if (!user)
-      return res.status(401).json({ message: "Invalid credentials" });
+expotts.loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(401).json({ message: "Invalid credentials" });
+  // 1️⃣ Find user
+  const user = await User.findOne({ email });
+  if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    res.json({
-      success: true,
-      message: "Login successful",
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        department: user.department,
-      },
-      token: generateToken(user._id),
-    });
+  // 2️⃣ Check password
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Server Error" });
-  }
+  // 3️⃣ Create JWT
+  const jwt = require("jsonwebtoken");
+  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+
+  // 4️⃣ Set HTTP-only cookie
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // Vercel https ke liye
+    sameSite: "Strict",
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  });
+
+  // 5️⃣ Send user data (token is in cookie, no need to send in JSON)
+  res.json({ message: "Logged in successfully", user });
 };
+
+module.exports = { loginUser };
 
 // ================== GET PROFILE ==================
 exports.getProfile = async (req, res) => {
@@ -89,7 +91,7 @@ exports.getProfile = async (req, res) => {
 };
 exports.logout = async (req, res) => {
   try {
-    
+
     res.json({
       success: true,
       message: "Logout successful",
