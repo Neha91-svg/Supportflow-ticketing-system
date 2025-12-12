@@ -26,15 +26,10 @@ export default function UserDashboard() {
       setError("");
 
       try {
-        const summaryRes = await axios.get("/api/tickets/dashboard/summary", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        const summaryRes = await api.get("/tickets/dashboard/summary");
         setSummary(summaryRes.data);
 
-        const ticketsRes = await axios.get("/api/tickets/mytickets", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-
+        const ticketsRes = await api.get("/tickets/mytickets");
         setRecentTickets(ticketsRes.data.tickets.slice(0, 5));
       } catch (err) {
         setError("Unable to load dashboard data. Try again later.");
