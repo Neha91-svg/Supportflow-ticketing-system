@@ -26,7 +26,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://supportflow-bli9m1njo-neha91-svgs-projects.vercel.app"
+      "supportflow-gamma.vercel.app",   // stable production
+      "supportflow-bli9m1njo-neha91-svgs-projects.vercel.app",
+      "supportflow-git-main-neha91-svgs-projects.vercel.app"
     ],
     credentials: true,
   })
