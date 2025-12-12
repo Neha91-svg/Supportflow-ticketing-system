@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api",
-  withCredentials: true,   // ✅ use env variable
+  baseURL: import.meta.env.VITE_API_URL,   // ❗ NO FALLBACK
+  withCredentials: true,
 });
 
-// Attach token automatically before each request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) config.headers.Authorization = `Bearer ${token}`;
