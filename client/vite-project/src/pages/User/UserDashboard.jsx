@@ -5,7 +5,6 @@ import Loader from "../../components/Loader";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../context/ThemeContext"; // 🌙 DARK MODE
 
-
 export default function UserDashboard() {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme(); // 🌙 DARK MODE
@@ -27,15 +26,14 @@ export default function UserDashboard() {
       setError("");
 
       try {
-        const summaryRes = await axios.get(
-          `${import.meta.env.VITE_API_URL}/tickets/dashboard/summary`,
-          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-        );
+        const summaryRes = await axios.get("/api/tickets/dashboard/summary", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        setSummary(summaryRes.data);
 
-        const ticketsRes = await axios.get(
-          `${import.meta.env.VITE_API_URL}/tickets/mytickets`,
-          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-        );
+        const ticketsRes = await axios.get("/api/tickets/mytickets", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
 
         setRecentTickets(ticketsRes.data.tickets.slice(0, 5));
       } catch (err) {
