@@ -24,16 +24,17 @@ const app = express();
 // Middlewares
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://supportflow-gamma.vercel.app",
-  "https://supportflow-bli9m1njo-neha91-svgs-projects.vercel.app",
+  "https://supportflow-ticketing-system.vercel.app", // ⭐ MUST ADD
   "https://supportflow-git-main-neha91-svgs-projects.vercel.app",
-  "https://supportflow-ticketing-system-1.onrender.com"  // ✅ add this
+  "https://supportflow-bli9m1njo-neha91-svgs-projects.vercel.app",
+  "https://supportflow-gamma.vercel.app",
+  "https://supportflow-ticketing-system-1.onrender.com"
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // Postman ya server-to-server
+      if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -41,9 +42,10 @@ app.use(
       }
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // preflight ke liye
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
 app.use(express.json());
 app.use(helmet());
 
