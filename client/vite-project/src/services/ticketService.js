@@ -1,4 +1,11 @@
-import api from "./api";
+import api from "../utils/api";
+
+const API_URL = "/api/tickets";
+
+// Common headers
+const authHeaders = () => ({
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
 
 const getTickets = async () => {
   const res = await api.get("/tickets");
@@ -43,4 +50,5 @@ export default {
   closeTicket,
   agentCloseTicket,
   deleteTicket,
+  authHeaders,
 };
