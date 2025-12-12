@@ -23,13 +23,13 @@ const app = express();
 
 // Middlewares
 const allowedOrigins = [
+
+  "https://supportflow-ticketing-system.vercel.app",
   "http://localhost:5173",
-  "https://supportflow-ticketing-system.vercel.app", // ⭐ MUST ADD
-  "https://supportflow-git-main-neha91-svgs-projects.vercel.app",
-  "https://supportflow-bli9m1njo-neha91-svgs-projects.vercel.app",
-  "https://supportflow-gamma.vercel.app",
   "https://supportflow-ticketing-system-1.onrender.com"
 ];
+
+
 
 app.use(
   cors({
