@@ -26,14 +26,15 @@ export default function UserDashboard() {
       setError("");
 
       try {
-        const summaryRes = await axios.get("/api/tickets/dashboard/summary", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-        setSummary(summaryRes.data);
+        const summaryRes = await axios.get(
+          `${import.meta.env.VITE_API_URL}/tickets/dashboard/summary`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        );
 
-        const ticketsRes = await axios.get("/api/tickets/mytickets", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        const ticketsRes = await axios.get(
+          `${import.meta.env.VITE_API_URL}/tickets/mytickets`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        );
 
         setRecentTickets(ticketsRes.data.tickets.slice(0, 5));
       } catch (err) {
@@ -56,8 +57,8 @@ export default function UserDashboard() {
   return (
     <div
       className={`space-y-10 p-6 min-h-screen transition-all ${theme === "dark"
-          ? "bg-gray-900 text-white"
-          : "bg-gray-100 text-black"
+        ? "bg-gray-900 text-white"
+        : "bg-gray-100 text-black"
         }`}
     >
       {/* 🌙 DARK MODE + LOGOUT BUTTON */}
