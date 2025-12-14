@@ -26,10 +26,10 @@ export default function UserDashboard() {
       setError("");
 
       try {
-        const summaryRes = await api.get("/api/tickets/dashboard/summary");
+        const summaryRes = await api.get("/tickets/dashboard/summary");
         setSummary(summaryRes.data);
 
-        const ticketsRes = await api.get("/api/tickets/mytickets");
+        const ticketsRes = await api.get("/tickets/mytickets");
         setRecentTickets(ticketsRes.data.tickets.slice(0, 5));
       } catch (err) {
         setError("Unable to load dashboard data. Try again later.");
