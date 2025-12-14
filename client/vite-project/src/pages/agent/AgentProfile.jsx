@@ -12,7 +12,7 @@ export default function AgentProfile() {
 
   const loadProfile = async () => {
     try {
-      const res = await axios.get("/api/agents/profile", {
+      const res = await axios.get("/agents/profile", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
