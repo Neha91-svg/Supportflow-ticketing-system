@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../utils/api";
 import Loader from "../../components/Loader";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../context/ThemeContext"; // 🌙 DARK MODE
@@ -26,10 +26,10 @@ export default function UserDashboard() {
       setError("");
 
       try {
-        const summaryRes = await api.get("/tickets/dashboard/summary");
+        const summaryRes = await api.get("/api/tickets/dashboard/summary");
         setSummary(summaryRes.data);
 
-        const ticketsRes = await api.get("/tickets/mytickets");
+        const ticketsRes = await api.get("/api/tickets/mytickets");
         setRecentTickets(ticketsRes.data.tickets.slice(0, 5));
       } catch (err) {
         setError("Unable to load dashboard data. Try again later.");
