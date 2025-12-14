@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Loader from "./components/Loader";
+import { useAuth } from "../../hooks/useAuth";
+
 
 import userRoutes from "./pages/User/userRoutes";
 import adminRoutes from "./pages/admin/adminRoutes";
@@ -13,11 +15,9 @@ import Register from "./pages/Auth/RegisterPage";
 
 
 function ProtectedRoutes({ children, allowedRoles }) {
-  const storedUser = localStorage.getItem("user");
+  const { user } = useAuth(); // ✅ React state se read
 
-  if (!storedUser) return <Login />;
-
-  const user = JSON.parse(storedUser);
+  if (!user) return <Login />; // agar logout ho gaya ho
 
   if (!allowedRoles.includes(user.role)) return <h1>Unauthorized</h1>;
 
