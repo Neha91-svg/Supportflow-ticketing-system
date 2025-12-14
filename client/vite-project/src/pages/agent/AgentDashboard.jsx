@@ -41,13 +41,14 @@ export default function AgentDashboard() {
   const loadDashboard = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/agents/dashboard", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+
+      const res = await axios.get("/agents/dashboard");
+
       setStats(res.data.data || {});
       setRecentTickets(res.data.recent || []);
     } catch (err) {
       console.error("Dashboard load error:", err);
+      setError("Unable to load dashboard");
     } finally {
       setLoading(false);
     }
@@ -221,10 +222,10 @@ export default function AgentDashboard() {
 
                   <span
                     className={`text-sm px-2 py-1 rounded-lg ${ticket.status === "open"
-                        ? "bg-red-200"
-                        : ticket.status === "in-progress"
-                          ? "bg-yellow-200"
-                          : "bg-green-200"
+                      ? "bg-red-200"
+                      : ticket.status === "in-progress"
+                        ? "bg-yellow-200"
+                        : "bg-green-200"
                       }`}
                   >
                     {ticket.status}
