@@ -21,26 +21,9 @@ connectDB().catch((err) => {
 
 const app = express();
 
-// Middlewares
-const allowedOrigins = [
-
-  "https://supportflow-ticketing-system.vercel.app",
-  "http://localhost:5173",
-  "https://supportflow-ticketing-system-1.onrender.com"
-];
-
-
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS: " + origin));
-      }
-    },
+    origin: true,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
@@ -75,11 +58,10 @@ app.use('/api/users', require('./routes/userRoutes'));
 
 app.use('/api/agents', agentRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/tickets', userTicketRoutes);  // so mytickets works as /api/tickets/mytickets
+app.use('/api/user-tickets', userTicketRoutes);  
 
 app.use(errorHandler);
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
