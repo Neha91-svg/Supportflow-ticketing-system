@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../context/ThemeContext"; // 🌙 DARK MODE
 
 export default function UserDashboard() {
-  const { user } = useAuth();
+  const { user,logoutUser } = useAuth();
   const { theme, toggleTheme } = useTheme(); // 🌙 DARK MODE
   const navigate = useNavigate();
 
