@@ -16,8 +16,8 @@ export default function UserDashboard() {
   const [error, setError] = useState("");
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    logoutUser(); // user + token dono remove
+    navigate("/login", { replace: true }); // login page redirect
   };
 
   useEffect(() => {
