@@ -6,7 +6,6 @@ It enables organizations to manage customer issues smoothly through a
 role-based workflow with **Admin**, **Agent**, and **User** access
 levels.
 
-------------------------------------------------------------------------
 
 ## 🚀 **Features**
 
@@ -18,7 +17,7 @@ levels.
 -   View ticket history\
 -   Secure authentication (JWT)
 
-------------------------------------------------------------------------
+
 
 ### 🧑‍💼 **Agent Features**
 
@@ -28,7 +27,7 @@ levels.
 -   Prioritize tickets\
 -   Close resolved tickets
 
-------------------------------------------------------------------------
+
 
 ### 👨‍💼 **Admin Features**
 
@@ -39,7 +38,7 @@ levels.
 -   Set priority levels\
 -   View support analytics
 
-------------------------------------------------------------------------
+
 
 ## 🏗️ **Tech Stack**
 
@@ -62,7 +61,7 @@ levels.
 
 -   MongoDB Atlas
 
-------------------------------------------------------------------------
+
 
 ## ⚙️ **Setup Instructions**
 
@@ -78,7 +77,7 @@ levels.
     npm install  
     npm run dev  
 
-------------------------------------------------------------------------
+
 
 ## 🔐 **Environment Variables**
 
